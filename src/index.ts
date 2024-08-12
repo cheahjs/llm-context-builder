@@ -25,7 +25,7 @@ program
       if (error instanceof Error) {
         console.error(`Error: ${error.message}`);
       } else {
-        console.error('An unknown error occurred');
+        console.error('An unknown error occurred:', error);
       }
       process.exit(1);
     }
