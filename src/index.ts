@@ -14,7 +14,7 @@ program
 program
   .command('file <input>')
   .description('Bundle a file or directory')
-  .option('--include <patterns...>', 'Include files matching these glob patterns')
+  .option('--include <patterns...>', 'Include files matching these glob patterns', '**/*')
   .option('--exclude <patterns...>', 'Exclude files matching these glob patterns')
   .action(async (input: string, options: { include: string[], exclude: string[] }) => {
     try {
