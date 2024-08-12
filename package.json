@@ -2,7 +2,7 @@
   "name": "llm-context-builder",
   "version": "1.0.0",
   "description": "CLI tool for building text blobs from files and websites to feed into LLMs",
-  "main": "src/index.ts",
+  "main": "dist/index.js",
   "scripts": {
     "build": "npx tsc",
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -18,7 +18,6 @@
     "url": "https://github.com/cheahjs/llm-context-builder/issues"
   },
   "homepage": "https://github.com/cheahjs/llm-context-builder#readme",
-  "type": "module",
   "devDependencies": {
     "@types/node": "^20.12.7",
     "@typescript-eslint/eslint-plugin": "^6.21.0",
