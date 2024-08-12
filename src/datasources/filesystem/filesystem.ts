@@ -1,7 +1,7 @@
 import { glob } from 'glob'
 import path from 'node:path'
 import { readFile } from 'fs/promises'
-import { Datasource } from '../interface'
+import { type Datasource } from '../interface'
 
 export class FilesystemDatasource implements Datasource {
   private readonly root: string
