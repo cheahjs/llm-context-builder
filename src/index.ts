@@ -17,9 +17,10 @@ program
   .description('Bundle a directory')
   .option('--include <patterns...>', 'Include files matching these glob patterns', '**/*')
   .option('--exclude <patterns...>', 'Exclude files matching these glob patterns')
-  .action(async (input: string, options: { include: string[], exclude: string[] }, cmd: Command) => {
+  .option('--use-gitignore', 'Use .gitignore file to exclude files')
+  .action(async (input: string, options: { include: string[], exclude: string[], useGitignore: boolean }, cmd: Command) => {
     try {
-      const datasource = new FilesystemDatasource(input, options.include, options.exclude)
+      const datasource = new FilesystemDatasource(input, options.include, options.exclude, options.useGitignore)
       const content = await datasource.getContent()
       const template = cmd.opts().template
       const filePaths = Array.from(content.keys())
