@@ -10,6 +10,7 @@ program
   .option('--type <type>', 'Specify the type of input (one of git, filesystem, web)')
   .option('--include <patterns...>', 'Include files matching these glob patterns')
   .option('--exclude <patterns...>', 'Exclude files matching these glob patterns')
+  .option('--tokenizer <tokenizer>', 'Specify the tokenizer to use for counting tokens')
   .parse(process.argv);
 
 const options = program.opts();
