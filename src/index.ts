@@ -14,14 +14,14 @@ program
   .option('--template <template>', 'Specify the per-file template to use', '<{{ file_path }}>\n{{ file_contents }}\n</{{ file_path }}>\n')
 
 program
-  .command('file <input>')
+  .command('file <path>')
   .description('Bundle a directory')
   .option('--include [patterns...]', 'Include files matching these glob patterns', '**/*')
   .option('--exclude [patterns...]', 'Exclude files matching these glob patterns')
   .option('--use-gitignore', 'Use .gitignore file to exclude files')
-  .action(async (input: string, options: { include: string[], exclude: string[], useGitignore: boolean }, cmd: Command) => {
+  .action(async (path: string, options: { include: string[], exclude: string[], useGitignore: boolean }, cmd: Command) => {
     try {
-      const datasource = new FilesystemDatasource(input, options.include, options.exclude, options.useGitignore)
+      const datasource = new FilesystemDatasource(path, options.include, options.exclude, options.useGitignore)
       const content = await datasource.getContent()
       const template = cmd.opts().template
       const filePaths = Array.from(content.keys())
