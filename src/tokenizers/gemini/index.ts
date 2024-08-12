@@ -1,5 +1,5 @@
 import { type GenerativeModel, GoogleGenerativeAI } from '@google/generative-ai'
-import { Tokenizer } from '../interface'
+import { type Tokenizer } from '../interface'
 
 /**
  * GeminiTokenizer class implementing the Tokenizer interface.

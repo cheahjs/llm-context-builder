@@ -1,4 +1,4 @@
-import { Tokenizer } from '../interface'
+import { type Tokenizer } from '../interface'
 
 /**
  * NaiveTokenizer class implementing the Tokenizer interface.
