@@ -1,4 +1,5 @@
 import { encoding_for_model, type Tiktoken, type TiktokenModel } from 'tiktoken'
+import { Tokenizer } from '../interface'
 
 /**
  * TiktokenTokenizer class implementing the Tokenizer interface.

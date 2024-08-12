@@ -1,3 +1,5 @@
+import { Tokenizer } from '../interface'
+
 /**
  * NaiveTokenizer class implementing the Tokenizer interface.
  * This class provides a naive implementation of token counting.
