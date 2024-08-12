@@ -28,8 +28,8 @@ export class FilesystemDatasource implements Datasource {
         const gitignoreContents = gitignoreBuffer.toString('utf-8')
         const gitignorePatterns = gitignoreContents.split('\n').filter(line => line.trim() !== '')
         excludePatterns = [...excludePatterns, ...gitignorePatterns]
-      } catch (error) {
-        if (error.code !== 'ENOENT') {
+      } catch (error: unknown) {
+        if (error instanceof Error && error.code !== 'ENOENT') {
           throw error
         }
       }
