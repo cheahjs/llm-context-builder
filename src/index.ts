@@ -10,11 +10,11 @@ program
   .description('A CLI tool for bundling files, git repositories, and websites into a single file for LLM consumption')
   .version(version)
   .option('--tokenizer <tokenizer>', 'Specify the tokenizer to use for counting tokens')
-  .option('--template <template>', 'Specify the per-file template to use', '<{{ file_path }}>\n{{ file_contents }}\n</{{ file_path }}>')
+  .option('--template <template>', 'Specify the per-file template to use', '<{{ file_path }}>\n{{ file_contents }}\n</{{ file_path }}>\n')
 
 program
   .command('file <input>')
-  .description('Bundle a file or directory')
+  .description('Bundle a directory')
   .option('--include <patterns...>', 'Include files matching these glob patterns', '**/*')
   .option('--exclude <patterns...>', 'Exclude files matching these glob patterns')
   .action(async (input: string, options: { include: string[], exclude: string[] }, cmd: Command) => {
