@@ -26,7 +26,7 @@ export class FilesystemDatasource implements Datasource {
     return content
   }
 
-  private async readFile (file: string) {
+  private async readFile (file: string): Promise<string> {
     const fullPath = path.join(this.root, file)
     // Read the file at fullPath and return its content
     return await readFile(fullPath, {

@@ -16,7 +16,7 @@ program
   .description('Bundle a file or directory')
   .option('--include <patterns...>', 'Include files matching these glob patterns')
   .option('--exclude <patterns...>', 'Exclude files matching these glob patterns')
-  .action(async (input, options) => {
+  .action(async (input: string, options: { include: string[], exclude: string[] }) => {
     try {
       const datasource = new FilesystemDatasource(input, options.include, options.exclude)
       const content = await datasource.getContent()

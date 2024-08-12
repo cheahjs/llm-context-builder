@@ -14,16 +14,16 @@ export class GeminiTokenizer implements Tokenizer {
    * Constructs a new GeminiTokenizer.
    * Initializes the GenerativeModel using the specified model.
    *
-   * @param {string} model_name - The name of the model to be used for tokenization.
+   * @param {string} modelName - The name of the model to be used for tokenization.
    * @throws {Error} If the GEMINI_API_KEY environment variable is not set.
    */
-  constructor (model_name: string) {
+  constructor (modelName: string) {
     const apiKey = process.env.GEMINI_API_KEY
-    if (!apiKey) {
+    if (apiKey === null || apiKey === undefined || apiKey === '') {
       throw new Error('GEMINI_API_KEY environment variable is not set.')
     }
     const genAI = new GoogleGenerativeAI(apiKey)
-    this.model = genAI.getGenerativeModel({ model: model_name })
+    this.model = genAI.getGenerativeModel({ model: modelName })
   }
 
   /**
