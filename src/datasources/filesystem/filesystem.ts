@@ -29,7 +29,7 @@ export class FilesystemDatasource implements Datasource {
         const gitignorePatterns = gitignoreContents.split('\n').filter(line => line.trim() !== '')
         excludePatterns = [...excludePatterns, ...gitignorePatterns]
       } catch (error: unknown) {
-        if (error instanceof Error && error.code !== 'ENOENT') {
+        if (error instanceof Error && (error as NodeJS.ErrnoException).code !== 'ENOENT') {
           throw error
         }
       }
