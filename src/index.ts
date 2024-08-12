@@ -2,6 +2,7 @@
 
 import { Command } from 'commander';
 import { version } from '../package.json';
+import { FilesystemDatasource } from './datasources/filesystem/filesystem';
 
 const program = new Command();
 
@@ -15,8 +16,15 @@ program
   .description('Bundle a file or directory')
   .option('--include <patterns...>', 'Include files matching these glob patterns')
   .option('--exclude <patterns...>', 'Exclude files matching these glob patterns')
-  .action((input, options) => {
-    // TODO: Implement logic to handle the file input and options
+  .action(async (input, options) => {
+    try {
+      const datasource = new FilesystemDatasource(input, options.include, options.exclude);
+      const content = await datasource.getContent();
+      console.log(content);
+    } catch (error) {
+      console.error(`Error: ${error.message}`);
+      process.exit(1);
+    }
   });
 
 program.parse(process.argv);
