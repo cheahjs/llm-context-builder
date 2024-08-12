@@ -15,8 +15,8 @@ program
 program
   .command('file <input>')
   .description('Bundle a directory')
-  .option('--include <patterns...>', 'Include files matching these glob patterns', '**/*')
-  .option('--exclude <patterns...>', 'Exclude files matching these glob patterns')
+  .option('--include [patterns...]', 'Include files matching these glob patterns', '**/*')
+  .option('--exclude [patterns...]', 'Exclude files matching these glob patterns')
   .option('--use-gitignore', 'Use .gitignore file to exclude files')
   .action(async (input: string, options: { include: string[], exclude: string[], useGitignore: boolean }, cmd: Command) => {
     try {
