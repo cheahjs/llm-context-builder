@@ -2,7 +2,7 @@ import { glob } from 'glob'
 import path from 'node:path'
 import { readFile } from 'fs/promises'
 import { type Datasource } from '../interface'
-import { isBinaryFileSync } from 'isbinaryfile'
+import { isBinaryFile } from 'isbinaryfile'
 
 export class FilesystemDatasource implements Datasource {
   private readonly root: string
@@ -31,7 +31,7 @@ export class FilesystemDatasource implements Datasource {
   private async readFile (file: string): Promise<string> {
     const fullPath = path.join(this.root, file)
     const buffer = await readFile(fullPath)
-    if (isBinaryFileSync(buffer, buffer.length)) {
+    if (await isBinaryFile(buffer, buffer.length)) {
       return '<BINARY CONTENT>'
     } else {
       return buffer.toString('utf-8')
