@@ -22,11 +22,11 @@ program
       const datasource = new FilesystemDatasource(input, options.include, options.exclude)
       const content = await datasource.getContent()
       const template = cmd.opts().template
-      const filePaths = Object.keys(content)
+      const filePaths = Array.from(content.keys())
       const output = filePaths.map(filePath => {
         return template
           .replace('{{ file_path }}', filePath)
-          .replace('{{ file_contents }}', content[filePath])
+          .replace('{{ file_contents }}', content.get(filePath) ?? '')
       }).join('\n')
       console.log(output)
     } catch (error: unknown) {
