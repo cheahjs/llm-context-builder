@@ -21,8 +21,12 @@ program
       const datasource = new FilesystemDatasource(input, options.include, options.exclude);
       const content = await datasource.getContent();
       console.log(content);
-    } catch (error) {
-      console.error(`Error: ${error.message}`);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        console.error(`Error: ${error.message}`);
+      } else {
+        console.error('An unknown error occurred');
+      }
       process.exit(1);
     }
   });
