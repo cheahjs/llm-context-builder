@@ -7,6 +7,8 @@ import fs from 'fs'
 import { NaiveTokenizer } from './tokenizers/naive'
 import { TiktokenTokenizer } from './tokenizers/tiktoken'
 import { GeminiTokenizer } from './tokenizers/gemini'
+import { type TiktokenModel } from 'tiktoken'
+import type { Tokenizer } from './tokenizers/interface'
 
 const program = new Command()
 
@@ -52,7 +54,7 @@ program
       if (program.opts().countTokens === true) {
         const tokenizerModel = program.opts().tokenizerModel as string
         const tokenizerType = program.opts().tokenizer as string
-        let tokenizer: NaiveTokenizer | TiktokenTokenizer | GeminiTokenizer
+        let tokenizer: Tokenizer
         if (tokenizerType === 'naive') {
           tokenizer = new NaiveTokenizer()
         } else if (tokenizerType === 'tiktoken') {
@@ -60,10 +62,11 @@ program
         } else if (tokenizerType === 'gemini') {
           tokenizer = new GeminiTokenizer(tokenizerModel)
         } else {
-          throw new Error(`Unknown tokenizer type: ${tokenizerType}`)
+          console.error(`Unknown tokenizer type: ${tokenizerType}`)
+          return
         }
         const tokenCount = await tokenizer.countTokens(output)
-        console.error(`Token count: ${tokenCount}`)
+        console.error(`Token count: ${tokenCount} (characters: ${output.length}, tokenizer: ${tokenizerType}, model: ${tokenizerModel})`)
       }
     } catch (error: unknown) {
       console.error('An unknown error occurred:', error)
