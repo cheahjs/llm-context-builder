@@ -4,6 +4,9 @@ import { Command } from 'commander'
 import { version } from '../package.json'
 import { FilesystemDatasource } from './datasources/filesystem/filesystem'
 import fs from 'fs'
+import { NaiveTokenizer } from './tokenizers/naive'
+import { TiktokenTokenizer } from './tokenizers/tiktoken'
+import { GeminiTokenizer } from './tokenizers/gemini'
 
 const program = new Command()
 
@@ -14,6 +17,7 @@ program
   .option('--tokenizer-model [tokenizerModel]', 'Specify the tokenizer model to use for counting tokens', 'gpt-4o')
   .option('--tokenizer [tokenizer]', 'Specify the tokenizer to use for counting tokens', 'tiktoken')
   .option('--template <template>', 'Specify the per-file template to use', '<file path="{{ file_path }}">\n{{ file_contents }}\n</file>\n')
+  .option('--count-tokens [countTokens]', 'Count the number of tokens used by the output', true)
 
 program
   .command('file <path>')
@@ -43,6 +47,23 @@ program
         console.log(output)
       } else {
         fs.writeFileSync(outputPath as string, output)
+      }
+
+      if (program.opts().countTokens) {
+        const tokenizerModel = program.opts().tokenizerModel
+        const tokenizerType = program.opts().tokenizer
+        let tokenizer: NaiveTokenizer | TiktokenTokenizer | GeminiTokenizer
+        if (tokenizerType === 'naive') {
+          tokenizer = new NaiveTokenizer()
+        } else if (tokenizerType === 'tiktoken') {
+          tokenizer = new TiktokenTokenizer(tokenizerModel as any)
+        } else if (tokenizerType === 'gemini') {
+          tokenizer = new GeminiTokenizer(tokenizerModel)
+        } else {
+          throw new Error(`Unknown tokenizer type: ${tokenizerType}`)
+        }
+        const tokenCount = await tokenizer.countTokens(output)
+        console.error(`Token count: ${tokenCount}`)
       }
     } catch (error: unknown) {
       console.error('An unknown error occurred:', error)
