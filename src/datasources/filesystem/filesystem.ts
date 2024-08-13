@@ -7,10 +7,7 @@ import { isBinaryFile } from 'isbinaryfile'
 const COMMONLY_IGNORED_FILES = [
   'LICENSE',
   'LICENSE.md',
-  'LICENSE.txt',
-  'README',
-  'README.md',
-  'README.txt'
+  'LICENSE.txt'
 ]
 
 export class FilesystemDatasource implements Datasource {
