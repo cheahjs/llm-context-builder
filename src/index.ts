@@ -9,6 +9,7 @@ const program = new Command()
 program
   .description('A CLI tool for bundling files, git repositories, and websites into a single file for LLM consumption')
   .version(version)
+  .option('-o, --output <path>', 'Specify the output file path. Defaults to stdout (-)', '-')
   .option('--tokenizer-model [tokenizerModel]', 'Specify the tokenizer model to use for counting tokens', 'gpt-4o')
   .option('--tokenizer [tokenizer]', 'Specify the tokenizer to use for counting tokens', 'tiktoken')
   .option('--template <template>', 'Specify the per-file template to use', '<{{ file_path }}>\n{{ file_contents }}\n</{{ file_path }}>\n')
