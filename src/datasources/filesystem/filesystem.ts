@@ -1,4 +1,4 @@
-import { globby } from 'globby'
+import globby from 'globby'
 import path from 'node:path'
 import { readFile } from 'fs/promises'
 import { type Datasource } from '../interface'
