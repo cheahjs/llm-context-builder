@@ -18,15 +18,12 @@ export class TransformersTokenizer implements Tokenizer {
    * @param {string} model - The HuggingFace repository to be used for tokenization.
    */
   constructor (model: string) {
-    this.tokenizerPromise = this.init(model).catch((error) => {
-      console.error('Error initializing tokenizer:', error)
-      throw error
-    })
+    this.tokenizerPromise = this.init(model)
   }
 
   private async init (model: string): Promise<PreTrainedTokenizer> {
     const { AutoTokenizer } = await import('@xenova/transformers')
-    return await AutoTokenizer.from_pretrained(model)
+    return AutoTokenizer.from_pretrained(model)
   }
 
   /**
