@@ -37,7 +37,7 @@ export class FilesystemDatasource implements Datasource {
       cwd: this.root,
       ignore: excludePatterns,
       absolute: false,
-      gitignore: this.useGitignore,
+      gitignore: this.useGitignore
     })
     for (const file of files) {
       content.set(file, await this.readFile(file))
