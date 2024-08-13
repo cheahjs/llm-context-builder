@@ -13,39 +13,39 @@ program
   .option('-o, --output <path>', 'Specify the output file path. Defaults to stdout (-)', '-')
   .option('--tokenizer-model [tokenizerModel]', 'Specify the tokenizer model to use for counting tokens', 'gpt-4o')
   .option('--tokenizer [tokenizer]', 'Specify the tokenizer to use for counting tokens', 'tiktoken')
-  .option('--template <template>', 'Specify the per-file template to use', '<{{ file_path }}>\n{{ file_contents }}\n</{{ file_path }}>\n')
+  .option('--template <template>', 'Specify the per-file template to use', '<file path="{{ file_path }}">\n{{ file_contents }}\n</file>\n')
 
 program
   .command('file <path>')
   .description('Bundle a directory')
-  .option('--include [patterns...]', 'Include files matching these glob patterns', '**/*')
-  .option('--exclude [patterns...]', 'Exclude files matching these glob patterns')
+  .option('--include [patterns...]', 'Include files matching these glob patterns', ['**/*'])
+  .option('--exclude [patterns...]', 'Exclude files matching these glob patterns', [])
   .option('--use-gitignore', 'Use .gitignore file to exclude files', true)
   .option('--use-common-ignore', 'Use common ignore patterns to exclude files', true)
-  .action(async (path: string, options: { include: string[], exclude: string[], useGitignore: boolean, useCommonIgnore: boolean }, cmd: Command) => {
+  .action(async (path: string, options: {
+    include: string[]
+    exclude: string[]
+    useGitignore: boolean
+    useCommonIgnore: boolean
+  }, cmd: Command) => {
     try {
       const datasource = new FilesystemDatasource(path, options.include, options.exclude, options.useGitignore, options.useCommonIgnore)
       const content = await datasource.getContent()
-      const template = cmd.opts().template
-      const filePaths = Array.from(content.keys())
-      const output = filePaths.map(filePath => {
+      const template = program.opts().template as string
+      const output = Array.from(content.entries()).map((file) => {
         return template
-          .replace('{{ file_path }}', filePath)
-          .replace('{{ file_contents }}', content.get(filePath) ?? '')
+          .replace('{{ file_path }}', file[0])
+          .replace('{{ file_contents }}', file[1])
       }).join('\n')
 
-      const outputPath = cmd.opts().output
+      const outputPath = program.opts().output
       if (outputPath === '-') {
         console.log(output)
       } else {
         fs.writeFileSync(outputPath as string, output)
       }
     } catch (error: unknown) {
-      if (error instanceof Error) {
-        console.error(`Error: ${error.message}`)
-      } else {
-        console.error('An unknown error occurred:', error)
-      }
+      console.error('An unknown error occurred:', error)
       process.exit(1)
     }
   })
