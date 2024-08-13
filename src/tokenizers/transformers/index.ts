@@ -1,5 +1,5 @@
 import { type Tokenizer } from '../interface'
-import { pipeline } from '@xenova/transformers'
+import { AutoTokenizer } from '@xenova/transformers'
 
 /**
  * TransformersTokenizer class implementing the Tokenizer interface.
@@ -9,7 +9,7 @@ import { pipeline } from '@xenova/transformers'
  * @implements {Tokenizer}
  */
 export class TransformersTokenizer implements Tokenizer {
-  private readonly model: string
+  private readonly tokenizer: AutoTokenizer
 
   /**
    * Constructs a new TransformersTokenizer.
@@ -18,7 +18,7 @@ export class TransformersTokenizer implements Tokenizer {
    * @param {string} model - The HuggingFace repository to be used for tokenization.
    */
   constructor (model: string) {
-    this.model = model
+    this.tokenizer = AutoTokenizer.from_pretrained(model)
   }
 
   /**
@@ -29,10 +29,7 @@ export class TransformersTokenizer implements Tokenizer {
    * @returns {Promise<number>} - The number of tokens in the text.
    */
   async countTokens (text: string): Promise<number> {
-    const tokenizer = await pipeline('tokenize', {
-      model: this.model
-    })
-    const tokens = await tokenizer(text)
-    return tokens.length
+    const { input_ids } = await this.tokenizer(text)
+    return input_ids.length
   }
 }
