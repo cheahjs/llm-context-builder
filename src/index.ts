@@ -32,12 +32,12 @@ program
           .replace('{{ file_contents }}', content.get(filePath) ?? '')
       }).join('\n')
 
-      const outputPath = cmd.opts().output;
+      const outputPath = cmd.opts().output
       if (outputPath === '-') {
-        console.log(output);
+        console.log(output)
       } else {
         // TODO: Implement writing to file
-        console.log(`Output should be written to ${outputPath}`);
+        console.log(`Output should be written to ${outputPath}`)
       }
     } catch (error: unknown) {
       if (error instanceof Error) {
