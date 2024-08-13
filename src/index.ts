@@ -3,6 +3,7 @@
 import { Command } from 'commander'
 import { version } from '../package.json'
 import { FilesystemDatasource } from './datasources/filesystem/filesystem'
+import fs from 'fs'
 
 const program = new Command()
 
@@ -36,8 +37,7 @@ program
       if (outputPath === '-') {
         console.log(output)
       } else {
-        // TODO: Implement writing to file
-        console.log(`Output should be written to ${outputPath}`)
+        fs.writeFileSync(outputPath, output)
       }
     } catch (error: unknown) {
       if (error instanceof Error) {
