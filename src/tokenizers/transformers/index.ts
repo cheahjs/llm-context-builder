@@ -24,7 +24,7 @@ export class TransformersTokenizer implements Tokenizer {
     })
   }
 
-  private async init(model: string): Promise<void> {
+  private async init (model: string): Promise<void> {
     this.tokenizer = await AutoTokenizer.from_pretrained(model)
   }
 
