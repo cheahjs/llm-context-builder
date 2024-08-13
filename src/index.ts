@@ -2,7 +2,7 @@
 
 import { Command } from 'commander'
 import { version } from '../package.json'
-import { FilesystemDatasource } from './datasources/filesystem/filesystem'
+import { FilesystemDatasource } from './datasources/filesystem/index.js'
 import fs from 'fs'
 import { NaiveTokenizer } from './tokenizers/naive'
 import { TiktokenTokenizer } from './tokenizers/tiktoken'
