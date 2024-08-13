@@ -49,7 +49,7 @@ program
         fs.writeFileSync(outputPath as string, output)
       }
 
-      if (program.opts().countTokens === true) { █
+      if (program.opts().countTokens === true) {
         const tokenizerModel = program.opts().tokenizerModel as string
         const tokenizerType = program.opts().tokenizer as string
         let tokenizer: NaiveTokenizer | TiktokenTokenizer | GeminiTokenizer
