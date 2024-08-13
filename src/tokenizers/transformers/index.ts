@@ -30,7 +30,7 @@ export class TransformersTokenizer implements Tokenizer {
    */
   async countTokens (text: string): Promise<number> {
     const tokenizer = await pipeline('tokenize', {
-      model: this.model,
+      model: this.model
     })
     const tokens = await tokenizer(text)
     return tokens.length
