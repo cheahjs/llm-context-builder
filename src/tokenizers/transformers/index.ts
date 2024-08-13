@@ -1,5 +1,4 @@
 import { type Tokenizer } from '../interface'
-import { AutoTokenizer } from '@xenova/transformers'
 import { type PreTrainedTokenizer } from '@xenova/transformers/types/tokenizers'
 
 /**
@@ -25,6 +24,7 @@ export class TransformersTokenizer implements Tokenizer {
   }
 
   private async init (model: string): Promise<void> {
+    const { AutoTokenizer } = await import('@xenova/transformers')
     this.tokenizer = await AutoTokenizer.from_pretrained(model)
   }
 
