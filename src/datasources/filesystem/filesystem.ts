@@ -1,8 +1,8 @@
-import { glob } from 'glob'
+import {glob} from 'glob'
 import path from 'node:path'
-import { readFile } from 'fs/promises'
-import { type Datasource } from '../interface'
-import { isBinaryFile } from 'isbinaryfile'
+import {readFile} from 'fs/promises'
+import {type Datasource} from '../interface'
+import {isBinaryFile} from 'isbinaryfile'
 
 const COMMONLY_IGNORED_FILES = [
   'LICENSE',
@@ -17,7 +17,7 @@ export class FilesystemDatasource implements Datasource {
   private readonly useGitignore: boolean
   private readonly useCommonIgnore: boolean
 
-  constructor (root: string, includePatterns: string[], excludePatterns: string[], useGitignore: boolean = false, useCommonIgnore: boolean = false) {
+  constructor(root: string, includePatterns: string[], excludePatterns: string[], useGitignore: boolean = false, useCommonIgnore: boolean = false) {
     this.root = root
     this.includePatterns = includePatterns
     this.excludePatterns = excludePatterns
@@ -25,7 +25,7 @@ export class FilesystemDatasource implements Datasource {
     this.useCommonIgnore = useCommonIgnore
   }
 
-  async getContent (): Promise<Map<string, string>> {
+  async getContent(): Promise<Map<string, string>> {
     const content = new Map<string, string>()
     let excludePatterns = this.excludePatterns
 
@@ -46,11 +46,12 @@ export class FilesystemDatasource implements Datasource {
         }
       }
     }
-
+    console.debug(excludePatterns)
     const files = await glob(this.includePatterns, {
       cwd: this.root,
       ignore: excludePatterns,
-      absolute: false
+      absolute: false,
+      nodir: true,
     })
     for (const file of files) {
       content.set(file, await this.readFile(file))
@@ -58,7 +59,7 @@ export class FilesystemDatasource implements Datasource {
     return content
   }
 
-  private async readFile (file: string): Promise<string> {
+  private async readFile(file: string): Promise<string> {
     const fullPath = path.join(this.root, file)
     const buffer = await readFile(fullPath)
     if (await isBinaryFile(buffer, buffer.length)) {
