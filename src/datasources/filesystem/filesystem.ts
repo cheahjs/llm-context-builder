@@ -7,7 +7,11 @@ import { isBinaryFile } from 'isbinaryfile'
 const COMMONLY_IGNORED_FILES = [
   'LICENSE',
   'LICENSE.md',
-  'LICENSE.txt'
+  'LICENSE.txt',
+  'package-lock.json',
+  'yarn.lock',
+  'pnpm-lock.yaml',
+  'npm-shrinkwrap.json'
 ]
 
 export class FilesystemDatasource implements Datasource {
