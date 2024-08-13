@@ -10,7 +10,7 @@ import { type PreTrainedTokenizer } from '@xenova/transformers/types/tokenizers'
  * @implements {Tokenizer}
  */
 export class TransformersTokenizer implements Tokenizer {
-  private readonly tokenizer: PreTrainedTokenizer
+  private tokenizer: PreTrainedTokenizer
 
   /**
    * Constructs a new TransformersTokenizer.
@@ -18,8 +18,8 @@ export class TransformersTokenizer implements Tokenizer {
    *
    * @param {string} model - The HuggingFace repository to be used for tokenization.
    */
-  async constructor (model: string) {
-    await this.init(model)
+  constructor (model: string) {
+    this.init(model).then(() => {})
   }
 
   private async init(model: string): Promise<void> {
