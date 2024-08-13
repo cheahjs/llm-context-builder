@@ -33,25 +33,11 @@ export class FilesystemDatasource implements Datasource {
       excludePatterns = [...excludePatterns, ...COMMONLY_IGNORED_FILES]
     }
 
-    if (this.useGitignore) {
-      const gitignorePath = path.join(this.root, '.gitignore')
-      try {
-        const gitignoreBuffer = await readFile(gitignorePath)
-        const gitignoreContents = gitignoreBuffer.toString('utf-8')
-        const gitignorePatterns = gitignoreContents.split('\n').filter(line => line.trim() !== '')
-        excludePatterns = [...excludePatterns, ...gitignorePatterns]
-      } catch (error: unknown) {
-        if (error instanceof Error && (error as NodeJS.ErrnoException).code !== 'ENOENT') {
-          throw error
-        }
-      }
-    }
-    console.debug(excludePatterns)
     const files = await globby(this.includePatterns, {
       cwd: this.root,
       ignore: excludePatterns,
       absolute: false,
-      nodir: true
+      gitignore: this.useGitignore,
     })
     for (const file of files) {
       content.set(file, await this.readFile(file))
