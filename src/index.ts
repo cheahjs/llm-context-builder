@@ -7,6 +7,7 @@ import fs from 'fs'
 import { NaiveTokenizer } from './tokenizers/naive'
 import { TiktokenTokenizer } from './tokenizers/tiktoken'
 import { GeminiTokenizer } from './tokenizers/gemini'
+import { TransformersTokenizer } from './tokenizers/transformers'
 import { type TiktokenModel } from 'tiktoken'
 import type { Tokenizer } from './tokenizers/interface'
 
@@ -61,6 +62,8 @@ program
           tokenizer = new TiktokenTokenizer(tokenizerModel as unknown as TiktokenModel)
         } else if (tokenizerType === 'gemini') {
           tokenizer = new GeminiTokenizer(tokenizerModel)
+        } else if (tokenizerType === 'transformers') {
+          tokenizer = new TransformersTokenizer(tokenizerModel)
         } else {
           console.error(`Unknown tokenizer type: ${tokenizerType}`)
           return
