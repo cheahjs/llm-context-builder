@@ -29,7 +29,7 @@ export class TransformersTokenizer implements Tokenizer {
    * @returns {Promise<number>} - The number of tokens in the text.
    */
   async countTokens (text: string): Promise<number> {
-    const { input_ids } = await this.tokenizer(text)
-    return input_ids.length
+    const { inputIds } = await this.tokenizer(text)
+    return inputIds.length
   }
 }
