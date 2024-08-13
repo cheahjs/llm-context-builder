@@ -56,7 +56,7 @@ program
         if (tokenizerType === 'naive') {
           tokenizer = new NaiveTokenizer()
         } else if (tokenizerType === 'tiktoken') {
-          tokenizer = new TiktokenTokenizer(tokenizerModel as any)
+          tokenizer = new TiktokenTokenizer(tokenizerModel)
         } else if (tokenizerType === 'gemini') {
           tokenizer = new GeminiTokenizer(tokenizerModel)
         } else {
