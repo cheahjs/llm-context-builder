@@ -9,7 +9,7 @@ import { type PreTrainedTokenizer } from '@xenova/transformers/types/tokenizers'
  * @implements {Tokenizer}
  */
 export class TransformersTokenizer implements Tokenizer {
-  private tokenizer!: PreTrainedTokenizer
+  private tokenizerPromise: Promise<PreTrainedTokenizer>
 
   /**
    * Constructs a new TransformersTokenizer.
@@ -18,14 +18,15 @@ export class TransformersTokenizer implements Tokenizer {
    * @param {string} model - The HuggingFace repository to be used for tokenization.
    */
   constructor (model: string) {
-    this.init(model).then(() => {}).catch((error) => {
+    this.tokenizerPromise = this.init(model).catch((error) => {
       console.error('Error initializing tokenizer:', error)
+      throw error
     })
   }
 
-  private async init (model: string): Promise<void> {
+  private async init (model: string): Promise<PreTrainedTokenizer> {
     const { AutoTokenizer } = await import('@xenova/transformers')
-    this.tokenizer = await AutoTokenizer.from_pretrained(model)
+    return AutoTokenizer.from_pretrained(model)
   }
 
   /**
@@ -36,7 +37,8 @@ export class TransformersTokenizer implements Tokenizer {
    * @returns {Promise<number>} - The number of tokens in the text.
    */
   async countTokens (text: string): Promise<number> {
-    const encoded = this.tokenizer.encode(text)
+    const tokenizer = await this.tokenizerPromise
+    const encoded = tokenizer.encode(text)
     return encoded.length
   }
 }
