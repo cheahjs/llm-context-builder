@@ -20,8 +20,8 @@ program
   .description('Bundle a directory')
   .option('--include [patterns...]', 'Include files matching these glob patterns', '**/*')
   .option('--exclude [patterns...]', 'Exclude files matching these glob patterns')
-  .option('--use-gitignore', 'Use .gitignore file to exclude files')
-  .option('--use-common-ignore', 'Use common ignore patterns to exclude files')
+  .option('--use-gitignore', 'Use .gitignore file to exclude files', true)
+  .option('--use-common-ignore', 'Use common ignore patterns to exclude files', true)
   .action(async (path: string, options: { include: string[], exclude: string[], useGitignore: boolean, useCommonIgnore: boolean }, cmd: Command) => {
     try {
       const datasource = new FilesystemDatasource(path, options.include, options.exclude, options.useGitignore, options.useCommonIgnore)
