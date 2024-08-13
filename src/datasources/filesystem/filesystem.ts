@@ -1,4 +1,4 @@
-import {glob} from 'glob'
+import {globby} from 'globby'
 import path from 'node:path'
 import {readFile} from 'fs/promises'
 import {type Datasource} from '../interface'
@@ -47,7 +47,7 @@ export class FilesystemDatasource implements Datasource {
       }
     }
     console.debug(excludePatterns)
-    const files = await glob(this.includePatterns, {
+    const files = await globby(this.includePatterns, {
       cwd: this.root,
       ignore: excludePatterns,
       absolute: false,
