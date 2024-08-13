@@ -37,7 +37,7 @@ program
       if (outputPath === '-') {
         console.log(output)
       } else {
-        fs.writeFileSync(outputPath, output)
+        fs.writeFileSync(outputPath as string, output)
       }
     } catch (error: unknown) {
       if (error instanceof Error) {
