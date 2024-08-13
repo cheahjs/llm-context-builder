@@ -9,7 +9,7 @@ import { type PreTrainedTokenizer } from '@xenova/transformers/types/tokenizers'
  * @implements {Tokenizer}
  */
 export class TransformersTokenizer implements Tokenizer {
-  private tokenizerPromise: Promise<PreTrainedTokenizer>
+  private readonly tokenizerPromise: Promise<PreTrainedTokenizer>
 
   /**
    * Constructs a new TransformersTokenizer.
@@ -26,7 +26,7 @@ export class TransformersTokenizer implements Tokenizer {
 
   private async init (model: string): Promise<PreTrainedTokenizer> {
     const { AutoTokenizer } = await import('@xenova/transformers')
-    return AutoTokenizer.from_pretrained(model)
+    return await AutoTokenizer.from_pretrained(model)
   }
 
   /**
