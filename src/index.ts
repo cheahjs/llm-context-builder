@@ -49,14 +49,14 @@ program
         fs.writeFileSync(outputPath as string, output)
       }
 
-      if (program.opts().countTokens) {
-        const tokenizerModel = program.opts().tokenizerModel
-        const tokenizerType = program.opts().tokenizer
+      if (program.opts().countTokens === true) { █
+        const tokenizerModel = program.opts().tokenizerModel as string
+        const tokenizerType = program.opts().tokenizer as string
         let tokenizer: NaiveTokenizer | TiktokenTokenizer | GeminiTokenizer
         if (tokenizerType === 'naive') {
           tokenizer = new NaiveTokenizer()
         } else if (tokenizerType === 'tiktoken') {
-          tokenizer = new TiktokenTokenizer(tokenizerModel)
+          tokenizer = new TiktokenTokenizer(tokenizerModel as any as TiktokenModel)
         } else if (tokenizerType === 'gemini') {
           tokenizer = new GeminiTokenizer(tokenizerModel)
         } else {
