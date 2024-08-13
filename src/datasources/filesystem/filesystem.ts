@@ -11,7 +11,12 @@ const COMMONLY_IGNORED_FILES = [
   'package-lock.json',
   'yarn.lock',
   'pnpm-lock.yaml',
-  'npm-shrinkwrap.json'
+  'npm-shrinkwrap.json',
+  'go.sum',
+  'requirements-lock.txt',
+  'Cargo.lock',
+  'composer.lock',
+  'Podfile.lock'
 ]
 
 export class FilesystemDatasource implements Datasource {
