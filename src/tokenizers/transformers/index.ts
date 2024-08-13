@@ -10,7 +10,7 @@ import { type PreTrainedTokenizer } from '@xenova/transformers/types/tokenizers'
  * @implements {Tokenizer}
  */
 export class TransformersTokenizer implements Tokenizer {
-  private tokenizer: PreTrainedTokenizer
+  private tokenizer!: PreTrainedTokenizer
 
   /**
    * Constructs a new TransformersTokenizer.
