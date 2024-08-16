@@ -11,6 +11,9 @@ asyncio = "^3.4.3"
 tiktoken = "^0.7.0"
 transformers = "^4.44.0"
 
+[tool.poetry.dev-dependencies]
+black = "^23.3.0"
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
