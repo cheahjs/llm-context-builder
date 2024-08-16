@@ -1,7 +1,15 @@
 import glob
 import os
-import pathlib
 import gitignore_parser
+
+
+def read_file(file):
+    with open(file, "rb") as f:
+        contents = f.read()
+        if contents.startswith(b"\x00"):
+            return "<BINARY CONTENT>"
+        else:
+            return contents.decode("utf-8")
 
 
 class FilesystemDatasource:
@@ -39,36 +47,20 @@ class FilesystemDatasource:
                 "Podfile.lock",
             ]
 
+        gitignore = lambda test_path: False
+
         if self.use_gitignore:
-            gitignore = gitignore_parser.parse_file(
+            gitignore = gitignore_parser.parse_gitignore(
                 os.path.join(self.root, ".gitignore")
             )
-            for pattern in self.include_patterns:
-                for file in glob.glob(os.path.join(self.root, pattern), recursive=True):
-                    if not gitignore.match(file) and not any(
-                        os.path.basename(file) == exclude_pattern
-                        for exclude_pattern in exclude_patterns
-                    ):
-                        file_path = os.path.relpath(file, self.root)
-                        file_contents = await self.read_file(file)
-                        content[file_path] = file_contents
-        else:
-            for pattern in self.include_patterns:
-                for file in glob.glob(os.path.join(self.root, pattern), recursive=True):
-                    if not any(
-                        os.path.basename(file) == exclude_pattern
-                        for exclude_pattern in exclude_patterns
-                    ):
-                        file_path = os.path.relpath(file, self.root)
-                        file_contents = await self.read_file(file)
-                        content[file_path] = file_contents
+        for pattern in self.include_patterns:
+            for file in glob.glob(os.path.join(self.root, pattern), recursive=True):
+                if not gitignore(file) and not any(
+                    os.path.basename(file) == exclude_pattern
+                    for exclude_pattern in exclude_patterns
+                ):
+                    file_path = os.path.relpath(file, self.root)
+                    file_contents = read_file(file)
+                    content[file_path] = file_contents
 
         return content
-
-    async def read_file(self, file):
-        with open(file, "rb") as f:
-            contents = f.read()
-            if contents.startswith(b"\x00"):
-                return "<BINARY CONTENT>"
-            else:
-                return contents.decode("utf-8")
