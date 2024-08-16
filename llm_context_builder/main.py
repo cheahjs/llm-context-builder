@@ -1,5 +1,4 @@
 import argparse
-import asyncio
 import os
 import sys
 from typing import Optional
@@ -11,7 +10,7 @@ from .tokenizers.gemini import GeminiTokenizer
 from .tokenizers.transformers import TransformersTokenizer
 
 
-async def main():
+def main():
     parser = argparse.ArgumentParser(
         description="A CLI tool for bundling files, git repositories, and websites into a single file for LLM consumption"
     )
@@ -79,7 +78,7 @@ async def main():
             args.use_gitignore,
             args.use_common_ignore,
         )
-        content = await datasource.get_content()
+        content = datasource.get_content()
         template = args.template
         output = "\n".join(
             template.replace("{{ file_path }}", file_path).replace(
@@ -108,10 +107,11 @@ async def main():
             else:
                 print(f"Unknown tokenizer type: {tokenizer_type}")
                 return
-            token_count = await tokenizer.count_tokens(output)
+            token_count = tokenizer.count_tokens(output)
             print(
                 f"Token count: {token_count} (characters: {len(output)}, tokenizer: {tokenizer_type}, model: {tokenizer_model})"
             )
 
 
-asyncio.run(main())
+if __name__ == '__main__':
+    main()

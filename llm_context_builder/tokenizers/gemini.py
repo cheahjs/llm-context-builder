@@ -9,5 +9,5 @@ class GeminiTokenizer(Tokenizer):
     def __init__(self, model_name):
         self.model = genai.GenerativeModel(model_name)
 
-    async def count_tokens(self, text):
+    def count_tokens(self, text):
         return self.model.count_tokens(text)

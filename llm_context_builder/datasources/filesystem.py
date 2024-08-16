@@ -27,7 +27,7 @@ class FilesystemDatasource:
         self.use_gitignore = use_gitignore
         self.use_common_ignore = use_common_ignore
 
-    async def get_content(self):
+    def get_content(self):
         content = {}
         exclude_patterns = self.exclude_patterns
 
