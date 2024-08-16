@@ -1,20 +1,16 @@
-[build-system]
-requires = ["poetry>=0.12"]
-build-backend = "poetry.masonry.api"
-
 [tool.poetry]
 name = "llm-context-builder"
+authors = ["Jun Siang Cheah <me@jscheah.me>"]
 version = "0.1.0"
 description = "A CLI tool for bundling files, git repositories, and websites into a single file for LLM consumption"
 
 [tool.poetry.dependencies]
-python = "^3.8"
+python = "^3.10"
 argparse = "^1.4.0"
 asyncio = "^3.4.3"
-google-auth = "^2.6.0"
-google-api-python-client = "^2.51.0"
-tiktoken = "^0.2.0"
-transformers = "^4.21.3"
+tiktoken = "^0.7.0"
+transformers = "^4.44.0"
 
-[tool.poetry.dev-dependencies]
-pytest = "^6.2.5"
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
