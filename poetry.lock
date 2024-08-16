@@ -1,0 +1,60 @@
+[[package]]
+name = "argparse"
+version = "1.4.0"
+description = "Python command-line parsing library"
+category = "main"
+optional = false
+python-versions = "*"
+
+[[package]]
+name = "asyncio"
+version = "3.4.3"
+description = "Library to write single-threaded concurrent code using coroutines, multiplexing I/O access over sockets and other resources, and implementing network clients and servers."
+category = "main"
+optional = false
+python-versions = "*"
+
+[[package]]
+name = "google-api-python-client"
+version = "2.51.0"
+description = "Google API Client Library for Python"
+category = "main"
+optional = false
+python-versions = "*"
+
+[[package]]
+name = "google-auth"
+version = "2.6.0"
+description = "Google Authentication Library for Python"
+category = "main"
+optional = false
+python-versions = "*"
+
+[[package]]
+name = "pytest"
+version = "6.2.5"
+description = "pytest: simple powerful testing with Python"
+category = "dev"
+optional = false
+python-versions = "*"
+
+[[package]]
+name = "tiktoken"
+version = "0.2.0"
+description = "Tiktoken is a Python library for working with tokenized text."
+category = "main"
+optional = false
+python-versions = "*"
+
+[[package]]
+name = "transformers"
+version = "4.21.3"
+description = "Transformers: State-of-the-art Natural Language Processing for PyTorch and TensorFlow 2.0"
+category = "main"
+optional = false
+python-versions = "*"
+
+[metadata]
+lock-version = "1.1"
+python-versions = "^3.8"
+content-hash = "1234567890abcdef"
