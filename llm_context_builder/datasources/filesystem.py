@@ -40,7 +40,9 @@ class FilesystemDatasource:
             ]
 
         if self.use_gitignore:
-            gitignore = gitignore_parser.parse_file(os.path.join(self.root, ".gitignore"))
+            gitignore = gitignore_parser.parse_file(
+                os.path.join(self.root, ".gitignore")
+            )
             for pattern in self.include_patterns:
                 for file in glob.glob(os.path.join(self.root, pattern), recursive=True):
                     if not gitignore.match(file) and not any(
