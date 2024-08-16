@@ -16,6 +16,9 @@ gitignore-parser = "^0.1.11"
 [tool.poetry.group.dev.dependencies]
 black = "^24.8.0"
 
+[tool.poetry.scripts]
+llm-context-builder = "llm_context_builder.__main__:main"
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
