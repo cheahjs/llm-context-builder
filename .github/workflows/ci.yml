@@ -25,3 +25,4 @@ jobs:
       - name: Run script
         run: |
           poetry run llm-context-builder --help
+          poetry run llm-context-builder file .
