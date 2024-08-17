@@ -26,3 +26,7 @@ jobs:
         run: |
           poetry run llm-context-builder --help
           poetry run llm-context-builder file .
+          poetry run llm-context-builder --tokenizer naive file .
+          poetry run llm-context-builder --tokenizer tiktoken file .
+          poetry run llm-context-builder --tokenizer gemini file .
+          poetry run llm-context-builder --tokenizer transformers file .
