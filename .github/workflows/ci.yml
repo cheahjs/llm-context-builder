@@ -28,4 +28,5 @@ jobs:
           poetry run llm-context-builder file .
           poetry run llm-context-builder --tokenizer naive file .
           poetry run llm-context-builder --tokenizer tiktoken file .
-          poetry run llm-context
+          poetry run llm-context-builder --tokenizer gemini --tokenizer-model gemini-1.5-flash-latest file .
+          poetry run llm-context-builder --tokenizer transformers --tokenizer-model Xenova/Meta-Llama-3.1-Tokenizer file .
