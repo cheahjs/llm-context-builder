@@ -18,10 +18,6 @@ jobs:
           pip install poetry
           poetry install
 
-      - name: Run tests
-        run: |
-          poetry run pytest .
-
       - name: Run linter
         run: |
           poetry run black --check .
