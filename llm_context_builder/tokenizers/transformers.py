@@ -1,3 +1,8 @@
+import os
+
+# Force enable TensorFlow to stop transformers from complaining
+# We don't want to install more dependencies than necessary
+os.environ["FORCE_TF_AVAILABLE"] = "1"
 import transformers
 from .base import Tokenizer
 

@@ -3,6 +3,7 @@ import os
 import sys
 from typing import Optional
 
+from llm_context_builder.datasources.interface import Datasource
 from .datasources.filesystem import FilesystemDatasource
 from .tokenizers.naive import NaiveTokenizer
 from .tokenizers.tiktoken import TiktokenTokenizer
@@ -40,6 +41,13 @@ def main():
         help="Count the number of tokens used by the output",
         action="store_true",
     )
+    parser.add_argument(
+        "--no-count-tokens",
+        help="Do not count the number of tokens used by the output",
+        action="store_false",
+        dest="count_tokens",
+    )
+    parser.set_defaults(count_tokens=True)
 
     subparsers = parser.add_subparsers(dest="command")
 
@@ -63,12 +71,27 @@ def main():
         action="store_true",
     )
     file_parser.add_argument(
+        "--no-use-gitignore",
+        help="Do not use .gitignore file to exclude files",
+        action="store_false",
+        dest="use_gitignore",
+    )
+    file_parser.add_argument(
         "--use-common-ignore",
         help="Use common ignore patterns to exclude files",
         action="store_true",
     )
+    file_parser.add_argument(
+        "--no-use-common-ignore",
+        help="Do not use common ignore patterns to exclude files",
+        action="store_false",
+        dest="use_common_ignore",
+    )
+    file_parser.set_defaults(use_gitignore=True, use_common_ignore=True)
 
     args = parser.parse_args()
+
+    datasource: Optional[Datasource] = None
 
     if args.command == "file":
         datasource = FilesystemDatasource(
@@ -78,6 +101,11 @@ def main():
             args.use_gitignore,
             args.use_common_ignore,
         )
+    else:
+        parser.print_help()
+        return
+
+    if datasource is not None:
         content = datasource.get_content()
         template = args.template
         output = "\n".join(
