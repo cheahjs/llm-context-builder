@@ -21,3 +21,7 @@ jobs:
       - name: Run linter
         run: |
           poetry run black --check .
+
+      - name: Run script
+        run: |
+          poetry run llm-context-builder --help
