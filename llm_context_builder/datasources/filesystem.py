@@ -1,7 +1,7 @@
 import os
 import gitignore_parser
 import fnmatch
-from typing import Dict, List, Optional
+from typing import Dict, List
 
 from llm_context_builder.datasources.interface import Datasource
 

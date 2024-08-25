@@ -1,27 +1,25 @@
 [project]
 name = "llm-context-builder"
-
-[tool.poetry]
-name = "llm-context-builder"
-authors = ["Jun Siang Cheah <me@jscheah.me>"]
 version = "0.1.0"
 description = "A CLI tool for bundling files, git repositories, and websites into a single file for LLM consumption"
+authors = [{ name = "Jun Siang Cheah", email = "me@jscheah.me" }]
+readme = "README.md"
+license = {file = "LICENSE"}
+requires-python = ">=3.10"
 
-[tool.poetry.dependencies]
-python = "^3.10"
-argparse = "^1.4.0"
-asyncio = "^3.4.3"
-tiktoken = "^0.7.0"
-transformers = "^4.44.0"
-google-generativeai = "^0.7.2"
-gitignore-parser = "^0.1.11"
+dependencies =[
+    "argparse==1.4.0",
+    "asyncio==3.4.3",
+    "tiktoken==0.7.0",
+    "transformers==4.44.0",
+    "google-generativeai==0.7.2",
+    "gitignore-parser==0.1.11"
+]
 
-[tool.poetry.group.dev.dependencies]
-black = "^24.8.0"
-
-[tool.poetry.scripts]
+[project.scripts]
 llm-context-builder = "llm_context_builder.main:main"
 
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+[tool.uv]
+dev-dependencies = [
+    "ruff>=0.6.2",
+]
