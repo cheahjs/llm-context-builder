@@ -1,8 +1,6 @@
 import argparse
 import sys
-from typing import Optional
 
-from llm_context_builder.datasources.interface import Datasource
 from .datasources.filesystem import FilesystemDatasource
 from .tokenizers.naive import NaiveTokenizer
 from .tokenizers.tiktoken import TiktokenTokenizer
@@ -90,8 +88,6 @@ def main():
 
     args = parser.parse_args()
 
-    datasource: Optional[Datasource] = None
-
     if args.command == "file":
         datasource = FilesystemDatasource(
             args.path,
@@ -136,7 +132,7 @@ def main():
                 return
             token_count = tokenizer.count_tokens(output)
             print(
-                f"Token count: {token_count} (characters: {len(output)}, tokenizer: {tokenizer_type}, model: {tokenizer_model})"
+                f"Token count: {token_count} (chars: {len(output)}, tokenizer: {tokenizer_type}, model: {tokenizer_model})"
             )
 
 
