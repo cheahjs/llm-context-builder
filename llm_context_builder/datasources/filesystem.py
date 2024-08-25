@@ -1,11 +1,12 @@
 import os
 import gitignore_parser
 import fnmatch
+from typing import Dict, List, Optional
 
 from llm_context_builder.datasources.interface import Datasource
 
 
-def read_file(file):
+def read_file(file: str) -> str:
     with open(file, "rb") as f:
         contents = f.read()
         if b"\x00" in contents:
@@ -17,19 +18,19 @@ def read_file(file):
 class FilesystemDatasource(Datasource):
     def __init__(
             self,
-            root,
-            include_patterns,
-            exclude_patterns,
-            use_gitignore=False,
-            use_common_ignore=False,
-    ):
+            root: str,
+            include_patterns: List[str],
+            exclude_patterns: List[str],
+            use_gitignore: bool = False,
+            use_common_ignore: bool = False,
+    ) -> None:
         self.root = root
         self.include_patterns = include_patterns
         self.exclude_patterns = exclude_patterns
         self.use_gitignore = use_gitignore
         self.use_common_ignore = use_common_ignore
 
-    def get_content(self):
+    def get_content(self) -> Dict[str, str]:
         content = {}
         exclude_patterns = self.exclude_patterns
 
