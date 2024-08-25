@@ -1,6 +1,6 @@
-import glob
 import os
 import gitignore_parser
+import fnmatch
 
 from llm_context_builder.datasources.interface import Datasource
 
@@ -56,16 +56,22 @@ class FilesystemDatasource(Datasource):
             gitignore = gitignore_parser.parse_gitignore(
                 os.path.join(self.root, ".gitignore")
             )
-        for pattern in self.include_patterns:
-            for file in glob.glob(os.path.join(self.root, pattern), recursive=True):
-                if not os.path.isfile(file):
+
+        for dirpath, dirnames, filenames in os.walk(self.root):
+            for filename in filenames:
+                file_path = os.path.join(dirpath, filename)
+                file_relpath = os.path.relpath(file_path, self.root)
+
+                if not any(fnmatch.fnmatch(file_relpath, pattern) for pattern in self.include_patterns):
                     continue
-                if not gitignore(file) and not any(
-                        os.path.basename(file) == exclude_pattern
+
+                if gitignore(file_path) or any(
+                        os.path.basename(file_path) == exclude_pattern
                         for exclude_pattern in exclude_patterns
                 ):
-                    file_path = os.path.relpath(file, self.root)
-                    file_contents = read_file(file)
-                    content[file_path] = file_contents
+                    continue
+
+                file_contents = read_file(file_path)
+                content[file_relpath] = file_contents
 
         return content
