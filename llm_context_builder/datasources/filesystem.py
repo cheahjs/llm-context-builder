@@ -60,7 +60,17 @@ class FilesystemDatasource(Datasource):
                 os.path.join(self.root, ".gitignore")
             )
 
-        for dirpath, dirnames, filenames in os.walk(self.root):
+        for dirpath, dirnames, filenames in os.walk(self.root, topdown=True):
+            for dirname in list(dirnames):
+                dir_path = os.path.join(dirpath, dirname)
+                dir_relpath = os.path.relpath(dir_path, self.root)
+
+                if gitignore(dir_path) or any(
+                        os.path.basename(dir_path) == exclude_pattern
+                        for exclude_pattern in exclude_patterns
+                ):
+                    dirnames.remove(dirname)
+
             for filename in filenames:
                 file_path = os.path.join(dirpath, filename)
                 file_relpath = os.path.relpath(file_path, self.root)
