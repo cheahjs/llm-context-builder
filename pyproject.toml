@@ -1,3 +1,6 @@
+[project]
+name = "llm-context-builder"
+
 [tool.poetry]
 name = "llm-context-builder"
 authors = ["Jun Siang Cheah <me@jscheah.me>"]
