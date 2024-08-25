@@ -63,7 +63,6 @@ class FilesystemDatasource(Datasource):
         for dirpath, dirnames, filenames in os.walk(self.root, topdown=True):
             for dirname in list(dirnames):
                 dir_path = os.path.join(dirpath, dirname)
-                dir_relpath = os.path.relpath(dir_path, self.root)
 
                 if gitignore(dir_path) or any(
                         os.path.basename(dir_path) == exclude_pattern
