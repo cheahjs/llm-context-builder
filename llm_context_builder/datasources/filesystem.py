@@ -51,6 +51,7 @@ class FilesystemDatasource(Datasource):
                 "composer.lock",
                 "Podfile.lock",
                 "poetry.lock",
+                ".git",
             ]
 
         gitignore = always_false
