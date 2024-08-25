@@ -1,4 +1,4 @@
-from .naive import NaiveTokenizer
-from .tiktoken import TiktokenTokenizer
-from .gemini import GeminiTokenizer
-from .transformers import TransformersTokenizer
+from .naive import NaiveTokenizer as NaiveTokenizer
+from .tiktoken import TiktokenTokenizer as TiktokenTokenizer
+from .gemini import GeminiTokenizer as GeminiTokenizer
+from .transformers import TransformersTokenizer as TransformersTokenizer

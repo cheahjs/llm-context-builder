@@ -1,1 +1,1 @@
-from .filesystem import FilesystemDatasource
+from .filesystem import FilesystemDatasource as FilesystemDatasource

@@ -14,6 +14,8 @@ def read_file(file: str) -> str:
         else:
             return contents.decode("utf-8", errors="replace")
 
+def always_false(test_path: str) -> bool:
+    return False
 
 class FilesystemDatasource(Datasource):
     def __init__(
@@ -51,7 +53,7 @@ class FilesystemDatasource(Datasource):
                 "poetry.lock",
             ]
 
-        gitignore = lambda test_path: False
+        gitignore = always_false
 
         if self.use_gitignore:
             gitignore = gitignore_parser.parse_gitignore(
