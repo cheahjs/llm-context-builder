@@ -128,11 +128,11 @@ def main():
             elif tokenizer_type == "transformers":
                 tokenizer = TransformersTokenizer(tokenizer_model)
             else:
-                print(f"Unknown tokenizer type: {tokenizer_type}")
+                sys.stderr.write(f"Unknown tokenizer type: {tokenizer_type}\n")
                 return
             token_count = tokenizer.count_tokens(output)
-            print(
-                f"Token count: {token_count} (chars: {len(output)}, tokenizer: {tokenizer_type}, model: {tokenizer_model})"
+            sys.stderr.write(
+                f"Token count: {token_count} (chars: {len(output)}, tokenizer: {tokenizer_type}, model: {tokenizer_model})\n"
             )
 
 
