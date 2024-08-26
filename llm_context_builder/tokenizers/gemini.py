@@ -12,4 +12,4 @@ class GeminiTokenizer(Tokenizer):
         self.model = genai.GenerativeModel(model_name)
 
     def count_tokens(self, text):
-        return self.model.count_tokens(text)
+        return self.model.count_tokens(text).total_tokens
