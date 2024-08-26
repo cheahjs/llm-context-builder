@@ -157,3 +157,6 @@ cython_debug/
 # Jetbrains IDE files
 .idea/
 .aider*
+
+# Ruff cache files
+.ruff_cache/
