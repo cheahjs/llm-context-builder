@@ -28,6 +28,8 @@ jobs:
           uv run ruff check
 
       - name: Run script
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: |
           uv run llm-context-builder --help
           uv run llm-context-builder file .
