@@ -27,22 +27,22 @@ jobs:
         run: |
           uv run ruff check
 
-      - name: Run llm-context-builder --help
+      - name: Verify llm-context-builder help command
         run: uv run llm-context-builder --help
 
-      - name: Run llm-context-builder file .
+      - name: Test llm-context-builder with default tokenizer
         run: uv run llm-context-builder file .
 
-      - name: Run llm-context-builder --tokenizer naive file .
+      - name: Test llm-context-builder with naive tokenizer
         run: uv run llm-context-builder --tokenizer naive file .
 
-      - name: Run llm-context-builder --tokenizer tiktoken file .
+      - name: Test llm-context-builder with tiktoken tokenizer
         run: uv run llm-context-builder --tokenizer tiktoken file .
 
-      - name: Run llm-context-builder --tokenizer gemini --tokenizer-model gemini-1.5-flash-latest file .
+      - name: Test llm-context-builder with gemini tokenizer
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: uv run llm-context-builder --tokenizer gemini --tokenizer-model gemini-1.5-flash-latest file .
 
-      - name: Run llm-context-builder --tokenizer transformers --tokenizer-model Xenova/Meta-Llama-3.1-Tokenizer file .
+      - name: Test llm-context-builder with transformers tokenizer
         run: uv run llm-context-builder --tokenizer transformers --tokenizer-model Xenova/Meta-Llama-3.1-Tokenizer file .
